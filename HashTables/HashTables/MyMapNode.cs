@@ -69,6 +69,7 @@ namespace HashTables
                     return item.Value;
                 }
             }
+
             return default(V);
         }
         protected int GetArrayPosition(K key)
@@ -91,8 +92,7 @@ namespace HashTables
     }
     public struct KeyValue<k, v>
     {
-        //Declaring Structure for key value pair
-        public k Key { get; set; }  
+        public k Key { get; set; }    //Declaring Structure for key value pair
         public v Value { get; set; }
     }
 }

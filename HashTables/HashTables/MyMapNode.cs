@@ -9,18 +9,35 @@ namespace HashTables
     class MyMapNode<K, V>
     {
         private readonly int size;
-        private readonly LinkedList<KeyValue<K, V>>[] items;
+        public readonly LinkedList<KeyValue<K, V>>[] items;
         public MyMapNode(int size)
         {
             this.size = size;
             this.items = new LinkedList<KeyValue<K, V>>[size];
         }
-        public void Add(K key, V value)
+        public LinkedList<KeyValue<K, V>> Add(K key, V value)
         {
-            int position = GetArrayPosition(key);  // |-5| =5 |3|=3 |-3|=3
+            int position = GetArrayPosition(key);
             LinkedList<KeyValue<K, V>> linkedList = GetLinkedList(position);
             KeyValue<K, V> item = new KeyValue<K, V>() { Key = key, Value = value };
             linkedList.AddLast(item);
+            return linkedList;
+        }
+        public void FindFrequency(V value)
+        {
+            int count = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                LinkedList<KeyValue<K, V>> linkedList = items[i];
+                foreach (var item in linkedList)
+                {
+                    if (item.Value.Equals(value))
+                    {
+                        count++;
+                    }
+                }
+            }
+            Console.WriteLine("{0} : {1}", value, count);
         }
         public void Remove(K key)
         {
@@ -40,8 +57,6 @@ namespace HashTables
             {
                 linkedList.Remove(foundItem);
             }
-
-
         }
         public V Get(K key)
         {
@@ -72,12 +87,12 @@ namespace HashTables
             }
             return linkedList;
         }
+
     }
     public struct KeyValue<k, v>
     {
-        public k Key { get; set; }
+        //Declaring Structure for key value pair
+        public k Key { get; set; }  
         public v Value { get; set; }
     }
 }
-
-    
